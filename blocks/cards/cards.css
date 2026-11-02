@@ -3,25 +3,120 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
   gap: 24px;
+  grid-template-columns: 1fr;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.cards .cards-card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
 }
 
 .cards .cards-card-body {
-  margin: 16px;
+  padding: 16px 20px 20px;
 }
 
-.cards .cards-card-image {
-  line-height: 0;
+.cards .cards-card-body h3 {
+  font-size: 20px;
+  line-height: 1.2;
+  margin: 8px 0;
+  text-wrap: balance;
 }
 
-.cards > ul > li img {
+.cards .cards-card-body p {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #444;
+  margin: 0 0 10px;
+}
+
+.cards .cards-card-link {
+  color: #d3242f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cards .cards-card-link::after {
+  content: " \203A";
+}
+
+@media (width >= 600px) {
+  .cards.interest > ul,
+  .cards.featured > ul {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* "You may be interested in" overlay tiles */
+.cards.interest > ul > li {
+  position: relative;
+  background: linear-gradient(135deg, #7a1620, #d3242f);
+  min-height: 260px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.cards.interest .cards-card-image {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cards.interest .cards-card-image img {
+  width: 70%;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 20px rgb(0 0 0 / 40%));
+}
+
+.cards.interest .cards-card-body {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+  background: linear-gradient(transparent, rgb(0 0 0 / 55%));
   width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
+}
+
+.cards.interest .cards-card-body h3 {
+  color: #fff;
+}
+
+.cards.interest .cards-card-link {
+  color: #fff;
+}
+
+/* Featured offer tiles */
+.cards.featured > ul > li {
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 6%);
+  display: flex;
+  flex-direction: column;
+}
+
+.cards.featured .cards-card-badge {
+  display: inline-block;
+  background: #006272;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 4px 10px;
+  border-radius: 3px;
+  margin: 0;
+}
+
+.cards.featured .cards-card-badge strong {
+  font-weight: 700;
 }

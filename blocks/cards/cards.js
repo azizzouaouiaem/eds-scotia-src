@@ -1,8 +1,13 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
+/**
+ * Cards block. Variants:
+ *   cards.interest  - product tiles with an image, a title and an "Explore" link (overlay style)
+ *   cards.featured  - offer tiles with an image, optional badge, heading, body and a link
+ * Default: image + body.
+ */
 export default function decorate(block) {
-  /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
@@ -12,6 +17,20 @@ export default function decorate(block) {
       if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-card-image';
       else div.className = 'cards-card-body';
     });
+    // first bold paragraph in a featured card is a badge
+    if (block.classList.contains('featured')) {
+      const body = li.querySelector('.cards-card-body');
+      const badge = body?.querySelector('p > strong');
+      if (badge && body.firstElementChild.contains(badge)) {
+        body.firstElementChild.classList.add('cards-card-badge');
+      }
+    }
+    // make the whole tile clickable via its last link
+    const link = li.querySelector('.cards-card-body a[href]');
+    if (link) {
+      link.classList.add('cards-card-link');
+      li.dataset.href = link.href;
+    }
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => {

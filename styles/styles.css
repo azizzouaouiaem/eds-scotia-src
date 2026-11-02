@@ -16,8 +16,11 @@
   --light-color: #f8f8f8;
   --dark-color: #505050;
   --text-color: #131313;
-  --link-color: #3b63fb;
-  --link-hover-color: #1d3ecf;
+  --link-color: #d3242f;
+  --link-hover-color: #b31d27;
+  --scotia-red: #d3242f;
+  --scotia-teal: #006272;
+  --scotia-grey-bg: #f4f4f4;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -322,4 +325,25 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+/* ===== Scotiabank theme ===== */
+
+/* full-bleed hero section */
+main > .section:has(.hero) {
+  padding: 0;
+}
+
+main > .section:has(.hero) > div {
+  max-width: none;
+}
+
+main .section > div > h2 {
+  text-align: center;
+  font-size: 30px;
+  margin: 32px 0 8px;
+}
+
+main .section:has(.tabs) {
+  background: #f5f6fc;
 }

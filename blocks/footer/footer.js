@@ -2,19 +2,22 @@ import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
 /**
- * loads and decorates the footer
- * @param {Element} block The footer block element
+ * Scotiabank footer. The footer fragment has three sections, in order:
+ *   0 contact columns (question / support / advice)   1 social links   2 bottom bar
  */
 export default async function decorate(block) {
-  // load footer as fragment
   const footerMeta = getMetadata('footer');
   const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
   const fragment = await loadFragment(footerPath);
 
-  // decorate footer DOM
   block.textContent = '';
   const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
+  const sections = [...fragment.children];
+  const names = ['contact', 'social', 'bottom'];
+  sections.forEach((section, i) => {
+    if (names[i]) section.classList.add(`footer-${names[i]}`);
+    footer.append(section);
+  });
 
   block.append(footer);
 }

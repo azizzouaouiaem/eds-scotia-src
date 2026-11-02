@@ -46,6 +46,16 @@ export function moveInstrumentation(from, to) {
 }
 
 /**
+ * Returns the site root to prefix content paths with: empty on aem.page / aem.live,
+ * the AEM site path (e.g. `/content/latamib`) when rendered by AEM author (Universal Editor).
+ * @returns {string}
+ */
+export function getContentRoot() {
+  const match = window.location.pathname.match(/^\/content\/[^/.]+(?=[/.])/);
+  return match ? match[0] : '';
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
